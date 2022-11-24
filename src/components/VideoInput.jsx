@@ -5,9 +5,6 @@ import Button from 'react-bootstrap/Button';
 import Swal from 'sweetalert2'
 
 
-
-
-
 export const VideoInput = () => {
 
     const [input , setInput] = useState("")
@@ -23,6 +20,8 @@ export const VideoInput = () => {
         if(input.includes("www") ){
             e.preventDefault()
             setVideo([...video ,input])
+            localStorage.setItem("video", JSON.stringify(video))
+            
         }else {
             e.preventDefault()
             Swal.fire({
