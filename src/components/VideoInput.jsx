@@ -1,8 +1,7 @@
-
-import { useState , useEffect } from 'react';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import { useState } from 'react';
 import Swal from 'sweetalert2'
+import { CardButton } from './CardButton';
+import { Submit } from './Submit';
 
 
 export const VideoInput = () => {
@@ -16,21 +15,24 @@ export const VideoInput = () => {
 
     }
     const submit =(e)=>{
+
        
-        if(input.includes("www") ){
-            e.preventDefault()
-            setVideo([...video ,input])
-            localStorage.setItem("video", JSON.stringify(video))
-            
-        }else {
-            e.preventDefault()
-            Swal.fire({
-                title: 'Error!',
-                text: 'Please enter a valid URL ',
-                icon: 'error',
-                showCancelButton: true,
-              })
-        }
+    if(input.includes("www") ){
+        e.preventDefault()
+        setVideo([...video ,input])
+        
+        
+    }else {
+        e.preventDefault()
+        Swal.fire({
+            title: 'Error!',
+            text: 'Please enter a valid URL ',
+            icon: 'error',
+            showCancelButton:false,
+        })
+    }
+    const local = localStorage.setItem("video")
+    console.log(local)
 
 
     }
@@ -38,20 +40,12 @@ export const VideoInput = () => {
 
   return (
     <>
-        <form className='form form-control'>
-            <input onChange={inputChange} type= "text" placeholder='Introduce la url' value ={input}></input>
-            <button className='btn btn-outline-primary' onClick={submit} type = "submit">Submit Url</button>
-        </form>
+        <Submit  inputChange={inputChange} submit={submit} input={input}/>
         <div className='row'>
             {
                 video.map((vid , i)=>{
                     return(
-                        <Card style={{ width: '420px' }}>
-                         <div key={i} className = "col-xxl mt-3">
-                            <iframe src={vid} allowFullScreen={true} width={400} height ={300}></iframe>
-                        </div>
-                        <Button variant="outline-dark">Delete Video</Button>
-                        </Card>
+                        <CardButton key={i} vid ={vid} />
                     )
                 })
             }
