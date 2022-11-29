@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState} from 'react';
 import Swal from 'sweetalert2'
 import { CardButton } from './CardButton';
 import { Submit } from './Submit';
@@ -8,20 +8,19 @@ export const VideoInput = () => {
 
     const [input , setInput] = useState("")
     const [video , setVideo] = useState([])
-
-
+   
     const inputChange =(e)=>{
         setInput(e.target.value)
 
     }
     const submit =(e)=>{
 
-       
     if(input.includes("www") ){
         e.preventDefault()
+        localStorage.setItem("video",input)
         setVideo([...video ,input])
         
-        
+       
     }else {
         e.preventDefault()
         Swal.fire({
@@ -31,9 +30,8 @@ export const VideoInput = () => {
             showCancelButton:false,
         })
     }
-    const local = localStorage.setItem("video")
-    console.log(local)
 
+    
 
     }
 
